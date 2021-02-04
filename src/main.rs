@@ -1,24 +1,20 @@
-#![feature(proc_macro_hygiene, decl_macro)]
-
-#[macro_use] extern crate rocket;
-
-struct Position {
-    x : u32,
-    y : u32
-
-}
-struct Point {
-    position : Position
-}
-
-#[get("/")]
-fn index() -> &'static str {
-    "Hello, world!"
-}
-
-
-
-
+use draw::{Canvas, Color, Drawing, Shape, Style, SvgRenderer};
+ 
 fn main() {
-    rocket::ignite().mount("/", routes![index]).launch();
+    
+    let mut canvas = Canvas::new(100, 100);
+
+    let circle = Drawing::new()
+        .with_shape(Shape::Circle {radius : 5 })
+        .with_xy(10.0, 10.0)
+        .with_style(Style::filled(Color::random()));
+
+    canvas.display_list.add(circle);
+
+    draw::render::save(
+        &canvas,
+        "target/tests/svg/output.svg",
+        SvgRenderer::new(),
+    )
+        .expect("Failed to save");
 }
