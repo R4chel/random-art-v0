@@ -4,14 +4,9 @@ use rgb::RGB;
 
 fn update_pos(min_pos: f32, max_pos: f32, current: f32) -> f32 {
     let offset = 1.0;
-    (current
-        + if rand::random() {
-            1.0 * offset
-        } else {
-            -1.0 * offset
-        })
-    .max(min_pos)
-    .min(max_pos)
+    (current + offset * (if rand::random() { 1.0 } else { -1.0 }))
+        .max(min_pos)
+        .min(max_pos)
 }
 
 fn update_color(current: u8) -> u8 {
