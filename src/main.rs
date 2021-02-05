@@ -8,13 +8,16 @@ fn update_pos(min_pos:f32, max_pos:f32, current:f32) ->  f32 {
 }
 
 fn update_color(current : u8) ->  u8{
-    if rand::random() { current + 10 } else { current - 10}
+    let offset = 10;
+    (
+        if rand::random() { current.checked_add(offset) } else { current.checked_sub(offset)}
+    ).unwrap_or(current)
 }
 fn main() {
-    let length : u8 = 100;
+    let length : u16 = 100;
     let mut canvas = Canvas::new(u32::from(length), u32::from(length));
 
-    let how_many = 10;
+    let how_many = 10000;
     let mut x_pos = 10.0;
     let mut y_pos = 10.0;
     let mut r = 128;
