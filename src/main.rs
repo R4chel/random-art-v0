@@ -30,8 +30,8 @@ fn main() {
 
     let max_pos = f32::from(length);
     let how_many = 5000;
-    let mut x_pos = 10.0;
-    let mut y_pos = 10.0;
+    let mut x_pos = rng.gen_range(0.0..max_pos);
+    let mut y_pos = rng.gen_range(0.0..max_pos);
     let mut r = rng.gen::<u8>();
     let mut g = rng.gen::<u8>();
     let mut b = rng.gen::<u8>();
