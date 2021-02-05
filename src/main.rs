@@ -1,5 +1,5 @@
 use draw::{Canvas, Drawing, Shape, Style, SvgRenderer};
-use rand;
+use rand::prelude::*;
 use rgb::RGB;
 
 fn update_pos(min_pos: f32, max_pos: f32, current: f32) -> f32 {
@@ -26,15 +26,17 @@ fn update_color(current: u8) -> u8 {
 fn main() {
     let length: u16 = 100;
     let mut canvas = Canvas::new(u32::from(length), u32::from(length));
+    let mut rng = thread_rng();
 
-    let how_many = 20000;
+    let max_pos = f32::from(length);
+    let how_many = 5000;
     let mut x_pos = 10.0;
     let mut y_pos = 10.0;
-    let mut r = 128;
-    let mut g = 128;
-    let mut b = 128;
+    let mut r = rng.gen::<u8>();
+    let mut g = rng.gen::<u8>();
+    let mut b = rng.gen::<u8>();
 
-    let update_pos = move |pos| update_pos(0.0, f32::from(length), pos);
+    let update_pos = move |pos| update_pos(0.0, max_pos, pos);
 
     for _ in 0..how_many {
         x_pos = update_pos(x_pos);
